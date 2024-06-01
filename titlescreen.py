@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import font as tkFont
 from PIL import Image, ImageTk
+from gamescreen import GameScreen
 
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # TITLE SCREEN CLASS
@@ -73,8 +74,7 @@ class TitleScreen:
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     def game_screen(self):
         self.frame.pack_forget()
-        game_frame = tk.Frame(master=self.master, width=750, height=750, bg="green")
-        game_frame.pack()
+        game_screen = GameScreen(self.master)
      #------------------------------------------------------------------------------------------------------------->
 
 if __name__ == "__main__":
