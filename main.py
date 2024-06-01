@@ -9,7 +9,6 @@ def main():
     win = tk.Tk()
     app = TitleScreen(win, title="Blackjack")
     win.mainloop()
-    print("hello")
 
 if __name__ == "__main__":
     main()
