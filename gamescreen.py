@@ -1,7 +1,8 @@
 import tkinter as tk 
 from tkinter import font as tkFont 
 from PIL import Image, ImageTk
-from card import Card
+import random
+from card import Card, Deck
 
 
 class GameScreen:
@@ -10,6 +11,3 @@ class GameScreen:
         self.master.geometry(f"{width}x{height}")
         self.frame = tk.Frame(master=self.master, width=width, height=height, bg="green")
         self.frame.pack()
-
-
-    
