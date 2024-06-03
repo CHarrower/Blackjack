@@ -53,7 +53,7 @@ class TitleScreen:
         self.photo_list = [ImageTk.PhotoImage(image) for image in images]
         self.current_image_index = 0
 
-        self.label = tk.Label(master=self.frame, image=self.photo_list[self.current_image_index], bg="green", bd=0)
+        self.label = tk.Label(master=self.frame, image=self.photo_list[self.current_image_index], bg="green", bd=0, cursor="pointinghand")
         self.label.place(x=350, y=350)
         self.label.bind("<Button-1>", self.button_clicked)
 

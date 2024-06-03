@@ -16,7 +16,6 @@ def show_game_screen(master):
     master.withdraw()  # Hide the title screen window
     game_win = tk.Toplevel(master)
     game_screen = GameScreen(game_win)
-    game_screen.show_random_faceup()  # Show one card facing up
     game_win.protocol("WM_DELETE_WINDOW", lambda: close_game_screen(master, game_win))
 
 def close_game_screen(master, game_win):
@@ -25,3 +24,4 @@ def close_game_screen(master, game_win):
 
 if __name__ == "__main__":
     main()
+
