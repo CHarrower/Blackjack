@@ -40,7 +40,7 @@ class GameScreen:
                  card_images.append(os.path.join(directory, filename))
         return card_images
     #------------------------------------------------------------------------------------------------------------->
-    
+
 
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     # SHOW RANDOM CARD
@@ -119,7 +119,7 @@ class GameScreen:
             current_image_index[0] = 0
             button.config(image=photo_list[current_image_index[0]])
 
-        button = tk.Label(master=self.frame, image=photo_list[0], bg="green", bd=0)
+        button = tk.Label(master=self.frame, image=photo_list[0], bg="green", bd=0,cursor="pointinghand")
         button.place(x=x, y=y)
         button.bind("<Button-1>", button_clicked)
         button.photo_list = photo_list  # Keep a reference to prevent garbage collection
