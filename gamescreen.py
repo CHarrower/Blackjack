@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import font as tkFont 
 from PIL import Image, ImageTk
 import random
-from card import Card, Deck
 
 
 class GameScreen:
