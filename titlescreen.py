@@ -19,7 +19,7 @@ class TitleScreen:
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
        
         self.create_title("BLACKJACK", "Attomic", 50)
-        self.create_title_cards(["main_cards/Clubs_card_Q.png", "main_cards/Hearts_card_08.png"])
+        self.create_title_cards(["main_cards/Clubs_Q.png", "main_cards/Hearts_8.png"])
         self.create_play_button_animation(["pix/Icons/Icon_Shadow (4).png", "pix/Icons/Icon_Dark (4).png"])
 
    
