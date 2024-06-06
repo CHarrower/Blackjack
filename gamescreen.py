@@ -24,7 +24,7 @@ class GameScreen:
         self.dealer_cards = []
         self.player_cards = []
 
-        self.back_of_card_p = "main_cards/back_4.png"
+        self.back_of_card_p = "main_cards/back/back_4.png"
         self.back_of_card_img = Image.open(self.back_of_card_p).convert("RGBA").resize((55, 66))
         self.back_of_card_phot = ImageTk.PhotoImage(self.back_of_card_img)
 
