@@ -34,14 +34,12 @@ class GameScreen:
         self.player_total_label = tk.Label(master=self.frame, text="Player: 0", bg="green", font=("Attomic", 40))
         self.player_total_label.place(x=50, y=555)
 
-        self.player_points_label = tk.Label(master=self.frame, text="Points: 1000", bg="green", font=("Attomic", 40))
-        self.player_points_label.place(x=50, y=675)
-
         self.play_again_button = None
+        self.winner_label = None
         self.current_image_index = [0]
         self.play_again_images = [
-            ImageTk.PhotoImage(Image.open("pix/button/Button_White (4).png").resize((200, 50))),
-            ImageTk.PhotoImage(Image.open("pix/button/Button_White (5).png").resize((200, 50)))
+            ImageTk.PhotoImage(Image.open("pix/button/Button_White (6).png").resize((200, 50))),
+            ImageTk.PhotoImage(Image.open("pix/button/Button_White (7).png").resize((200, 50)))
         ]
 
         self.player_total = 0
@@ -162,8 +160,7 @@ class GameScreen:
         label.place(x=text_x, y=text_y)
         
         return button  # Return the button widget
-    
-    # UPDATE TOTALS
+# UPDATE TOTALS
     def update_totals(self):
         self.player_total_label.config(text=f"Player: {self.player_total}")
         self.dealer_total_label.config(text=f"Dealer: {self.dealer_total}")
@@ -195,6 +192,7 @@ class GameScreen:
     def check_game_over(self, player_standing=False):
         if self.player_total == 21:
             print("Player wins with 21!")
+            self.show_win_screen("Player wins with 21!")
         elif self.player_total > 21:
             print("Player busts!")
             self.show_win_screen("Dealer wins!")
@@ -217,10 +215,15 @@ class GameScreen:
         # Hide hit and stand buttons
         self.hit_button.place_forget()
         self.stand_button.place_forget()
+        
 
         # Display the winner text
         winner_label = tk.Label(master=self.frame, text=winner_text, bg="green", font=("Attomic", 45))
         winner_label.place(x=50, y=350)
+        self.winner_label = winner_label
+
+        play_again_text = tk.Label(master=self.frame, text="Play again?", bg="green", font=("Attomic", 50))
+        play_again_text.place(x=550, y=290)
 
         # Define play_again_clicked and reset_play_again_image here
         current_image_index = [0]
@@ -229,17 +232,20 @@ class GameScreen:
             current_image_index[0] = (current_image_index[0] + 1) % len(self.play_again_images)
             play_again_button.config(image=self.play_again_images[current_image_index[0]])
             play_again_button.after(100, reset_play_again_image)
+            self.reset_game()
+            play_again_text.destroy()
 
         def reset_play_again_image():
             current_image_index[0] = 0
             play_again_button.config(image=self.play_again_images[current_image_index[0]])
 
-        play_again_button = tk.Button(master=self.frame, image=self.play_again_images[0], bd=0, command=self.reset_game, bg="green")
-        play_again_button.place(x=50, y=450)
+        play_again_button = tk.Label(master=self.frame, image=self.play_again_images[0], bg="green", cursor="pointinghand")
+        play_again_button.place(x=540, y=350)
         play_again_button.bind("<Button-1>", play_again_clicked)
+        self.play_again_button = play_again_button
 
- # RESET GAME
-    
+
+    # RESET GAME
     def reset_game(self):
         print("Resetting game...")
         # Clear dealer and player cards from the screen
@@ -256,14 +262,18 @@ class GameScreen:
         self.dealer_total_label.config(text="Dealer: 0")
         self.player_total_label.config(text="Player: 0")
 
+        if self.winner_label:
+            self.winner_label.destroy()
+
+        # Destroy the play again button
+        if self.play_again_button:
+            self.play_again_button.destroy()
+
+        # Recreate hit and stand buttons
+        self.create_hit_stand_buttons()
+        
         # Show new cards for the dealer and the player
         self.show_cards()
-
-        # Hide the play again button
-        self.play_again_button.place_forget()
-
-
-
 
 # MAIN FUNCTION
 if __name__ == "__main__":
