@@ -241,21 +241,21 @@ class GameScreen:
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     def check_game_over(self, player_standing=False):
         if self.player_total == 21:
-            print("Player wins!")
-            self.show_win_screen("Player wins!")
+            print("You win!")
+            self.show_win_screen("You win!")
         elif self.player_total > 21:
-            print("Player busts!")
+            print("Bust!")
             self.show_win_screen("Dealer wins!")
         elif self.dealer_total > 21:
-            print("Dealer busts! Player wins!")
-            self.show_win_screen("Player wins!")
+            print("Dealer busts! You win!")
+            self.show_win_screen("You win!")
         elif player_standing:
             if self.dealer_total > self.player_total:
                 print("Dealer wins!")
                 self.show_win_screen("Dealer wins!")
             elif self.dealer_total < self.player_total:
-                print("Player wins!")
-                self.show_win_screen("Player wins!")
+                print("You win!")
+                self.show_win_screen("You win!")
             else:
                 print("It's a tie!")
                 self.show_win_screen("It's a tie!")
@@ -321,15 +321,17 @@ class GameScreen:
         if self.winner_label:
             self.winner_label.destroy()
 
-        # Destroy the play again button
+        # Destroy the play again button and text
         if self.play_again_button:
             self.play_again_button.destroy()
+            self.play_again_button = None
 
         # Recreate hit and stand buttons
         self.create_hit_stand_buttons()
         
         # Show new cards for the dealer and the player
         self.show_cards()
+
     #------------------------------------------------------------------------------------------------------------->
 
     
