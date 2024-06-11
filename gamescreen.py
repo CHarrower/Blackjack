@@ -36,7 +36,10 @@ class GameScreen:
         self.dealer_total_label.place(x=50, y=115)
         self.player_total_label = tk.Label(master=self.frame, text="Player: 0", bg="green", font=("Attomic", 40))
         self.player_total_label.place(x=50, y=555)
+        self.points_label = tk.Label(master=self.frame, text="Points: 1000", bg="green", font=("Attomic", 40))
+        self.points_label.place(x=50, y=670)
         self.play_again_button = None
+        self.play_again_text = None
         self.winner_label = None
         self.current_image_index = [0]
         self.play_again_images = [
@@ -45,6 +48,7 @@ class GameScreen:
         ]
         self.player_total = 0
         self.dealer_total = 0
+        self.points = 1000
         self.show_cards()
         self.hit_button = None
         self.stand_button = None
@@ -242,30 +246,53 @@ class GameScreen:
     def check_game_over(self, player_standing=False):
         if self.player_total == 21:
             print("You win!")
+            self.points += 100
+            self.points_label.config(text=f"Points: {self.points}")
             self.show_win_screen("You win!")
         elif self.player_total > 21:
             print("Bust!")
+            self.points -= 100
+            self.points_label.config(text=f"Points: {self.points}")
             self.show_win_screen("Dealer wins!")
         elif self.dealer_total > 21:
             print("Dealer busts! You win!")
+            self.points += 100
+            self.points_label.config(text=f"Points: {self.points}")
             self.show_win_screen("You win!")
         elif player_standing:
             if self.dealer_total > self.player_total:
                 print("Dealer wins!")
+                self.points -= 100
+                self.points_label.config(text=f"Points: {self.points}")
                 self.show_win_screen("Dealer wins!")
             elif self.dealer_total < self.player_total:
                 print("You win!")
+                self.points += 100
+                self.points_label.config(text=f"Points: {self.points}")
                 self.show_win_screen("You win!")
             else:
                 print("It's a tie!")
                 self.show_win_screen("It's a tie!")
+
+        if self.points <= 0:
+            self.points = 0
+            self.points_label.config(text=f"Points: {self.points}")
+            print("Game over! Out of points!")
+            self.show_win_screen("Game over!\nOut of points!", game_over=True)
+        else:
+            self.points_label.config(text=f"Points: {self.points}")
     #------------------------------------------------------------------------------------------------------------->
 
 
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     # Show win screen
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    def show_win_screen(self, winner_text):
+    def show_win_screen(self, winner_text, game_over=False):
+        
+        # Destroy previous winner label
+        if self.winner_label:
+            self.winner_label.destroy()
+
         # Hide hit and stand buttons
         self.hit_button.place_forget()
         self.stand_button.place_forget()
@@ -275,8 +302,15 @@ class GameScreen:
         winner_label.place(x=50, y=350)
         self.winner_label = winner_label
 
+        if self.play_again_text:
+            self.play_again_text.destroy()
+
+        if self.play_again_button:
+            self.play_again_button.destroy()
+
         play_again_text = tk.Label(master=self.frame, text="Play again?", bg="green", font=("Attomic", 50))
         play_again_text.place(x=550, y=290)
+        self.play_again_text = play_again_text
 
         # Define play_again_clicked and reset_play_again_image here
         current_image_index = [0]
@@ -285,12 +319,13 @@ class GameScreen:
             current_image_index[0] = (current_image_index[0] + 1) % len(self.play_again_images)
             play_again_button.config(image=self.play_again_images[current_image_index[0]])
             play_again_button.after(100, reset_play_again_image)
-            self.reset_game()
+            self.reset_game(reset_points=game_over)
             play_again_text.destroy()
 
         def reset_play_again_image():
             current_image_index[0] = 0
             play_again_button.config(image=self.play_again_images[current_image_index[0]])
+            play_again_button.destroy()
 
         play_again_button = tk.Label(master=self.frame, image=self.play_again_images[0], bg="green", cursor="pointinghand")
         play_again_button.place(x=540, y=350)
@@ -302,7 +337,7 @@ class GameScreen:
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     # Reset game
     #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    def reset_game(self):
+    def reset_game(self, reset_points=False):
         print("Resetting game...")
         # Clear dealer and player cards from the screen
         dealer_children = self.dealer_frame.winfo_children()
@@ -326,13 +361,21 @@ class GameScreen:
             self.play_again_button.destroy()
             self.play_again_button = None
 
+        if self.play_again_text:
+            self.play_again_text.destroy()
+            self.play_again_text = None
+
+        # Reset points if necessary
+        if reset_points:
+            self.points = 1000
+
         # Recreate hit and stand buttons
         self.create_hit_stand_buttons()
         
         # Show new cards for the dealer and the player
         self.show_cards()
-
     #------------------------------------------------------------------------------------------------------------->
+
 
     
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -342,4 +385,3 @@ if __name__ == "__main__":
     win = tk.Tk()
     app = GameScreen(win)
     win.mainloop()
-
