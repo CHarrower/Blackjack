@@ -21,7 +21,7 @@ The Blackjack Game provides an interactive interface where users can play the cl
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/blackjack-game.git
+    git clone https://github.com/CHarrower/Blackjack.git
     ```
 
 2. **Navigate to the project directory:**
