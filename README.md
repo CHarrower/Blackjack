@@ -88,6 +88,7 @@ Code Structure
 Screenshots
 
 Here are some screenshots of the game:
+
 Title Screen:
 ![./blackjack/screenshots /Screenshot 2024-06-17 at 13.53.18.png](<screenshots /Screenshot 2024-06-17 at 13.53.18.png>)
 
