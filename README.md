@@ -27,7 +27,7 @@ The Blackjack Game provides an interactive interface where users can play the cl
 2. **Navigate to the project directory:**
 
     ```bash
-    cd blackjack-game
+    cd blackjack
     ```
 
 3. **Install the required dependencies:**
