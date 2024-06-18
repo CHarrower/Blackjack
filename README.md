@@ -1,6 +1,6 @@
 # Blackjack Game
 
-Welcome to the Blackjack Game! This project is a simple implementation of the popular card game Blackjack, built using Python and Tkinter for the graphical user interface.
+Welcome to my Blackjack Game! This project is a simple implementation of the popular card game Blackjack, built using Python and Tkinter for the graphical user interface.
 
 ## Table of Contents
 
